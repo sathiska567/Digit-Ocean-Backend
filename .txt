@@ -1,0 +1,3 @@
+userName = 
+pw - Pass123
+link - mongodb+srv://sasindusathiska:<db_password>@cluster0.qyr8j.mongodb.net/
