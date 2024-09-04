@@ -1,26 +1,47 @@
 import { Injectable } from '@nestjs/common';
 import { CreateRegisterUserDto } from './dto/create-register-user.dto';
 import { UpdateRegisterUserDto } from './dto/update-register-user.dto';
+import { RegisterUser } from './schemas/register-user.schema';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class RegisterUserService {
-  create(createRegisterUserDto: CreateRegisterUserDto) {
-    return 'This action adds a new registerUser';
+  
+  constructor(
+    @InjectModel("registerUser")
+    private readonly registerUserModel: Model<RegisterUser>,
+    private readonly jwtService:JwtService
+  ) {}
+
+
+  async createUser(registerUserDetails: RegisterUser) {
+    try {
+      console.log(registerUserDetails);
+      const salt = bcrypt.genSaltSync(10);
+
+      // generate hash password
+      const hashPassword = bcrypt.hashSync(registerUserDetails.password, salt);
+      registerUserDetails.password = hashPassword;
+
+      // store data inside the database
+      const response = new this.registerUserModel(registerUserDetails) 
+      await response.save()
+
+      return {
+        success:true,
+        message:"User created successfully",
+        data:response
+      }
+      
+    } catch (error) {
+       return {
+         success:false,
+         message:error.message
+       }
+    }
   }
 
-  findAll() {
-    return `This action returns all registerUser`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} registerUser`;
-  }
-
-  update(id: number, updateRegisterUserDto: UpdateRegisterUserDto) {
-    return `This action updates a #${id} registerUser`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} registerUser`;
-  }
 }
