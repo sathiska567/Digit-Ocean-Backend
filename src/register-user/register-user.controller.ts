@@ -2,33 +2,35 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { RegisterUserService } from './register-user.service';
 import { CreateRegisterUserDto } from './dto/create-register-user.dto';
 import { UpdateRegisterUserDto } from './dto/update-register-user.dto';
+import { RegisterUser } from './schemas/register-user.schema';
 
-@Controller('register-user')
+@Controller('user')
 export class RegisterUserController {
   constructor(private readonly registerUserService: RegisterUserService) {}
 
-  @Post()
-  create(@Body() createRegisterUserDto: CreateRegisterUserDto) {
-    return this.registerUserService.create(createRegisterUserDto);
+  @Post("register")
+  create(@Body() registerData: RegisterUser) {
+    return this.registerUserService.createUser(registerData);
   }
 
-  @Get()
-  findAll() {
-    return this.registerUserService.findAll();
-  }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.registerUserService.findOne(+id);
-  }
+  // @Get()
+  // findAll() {
+  //   return this.registerUserService.findAll();
+  // }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRegisterUserDto: UpdateRegisterUserDto) {
-    return this.registerUserService.update(+id, updateRegisterUserDto);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.registerUserService.findOne(+id);
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.registerUserService.remove(+id);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateRegisterUserDto: UpdateRegisterUserDto) {
+  //   return this.registerUserService.update(+id, updateRegisterUserDto);
+  // }
+
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.registerUserService.remove(+id);
+  // }
 }
