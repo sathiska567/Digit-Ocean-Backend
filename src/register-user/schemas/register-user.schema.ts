@@ -5,6 +5,7 @@ export interface RegisterUser extends Document {
         email:string,
         password:string,
         name:string,
+        jwt:string
 }
 
 
@@ -21,5 +22,9 @@ export const RegisterUserSchema = new Schema({
     name: {
         type: String,
         required: true
+    },
+    jwt: {
+        type: String,
+        default: null
     }
 })
