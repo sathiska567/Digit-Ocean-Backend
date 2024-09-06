@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { RegisterUserModule } from './register-user/register-user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
+import { LoginUserModule } from './login-user/login-user.module';
 
 
 @Module({
@@ -26,7 +27,9 @@ import { ConfigModule } from '@nestjs/config';
     //   }),
     // }),
 
-    RegisterUserModule
+    RegisterUserModule,
+  
+    LoginUserModule
 
   ],
   controllers: [AppController],
