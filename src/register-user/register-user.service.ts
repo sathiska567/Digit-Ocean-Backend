@@ -20,28 +20,37 @@ export class RegisterUserService {
   async createUser(registerUserDetails: RegisterUser) {
     try {
       console.log(registerUserDetails);
+  
+      // Check if password and confirmPassword match
+      if (registerUserDetails.password !== registerUserDetails.confirmPassword) {
+        return {
+          success: false,
+          message: "Password and Confirm Password do not match",
+        };
+      }
+  
       const salt = bcrypt.genSaltSync(10);
-
-      // generate hash password
+  
+      // Generate hashed password
       const hashPassword = bcrypt.hashSync(registerUserDetails.password, salt);
       registerUserDetails.password = hashPassword;
-
-      // store data inside the database
-      const response = new this.registerUserModel(registerUserDetails) 
-      await response.save()
-
+  
+      // Store data inside the database
+      const response = new this.registerUserModel(registerUserDetails);
+      await response.save();
+  
       return {
-        success:true,
-        message:"User created successfully",
-        data:response
-      }
-      
+        success: true,
+        message: "User created successfully",
+        data: response,
+      };
     } catch (error) {
-       return {
-         success:false,
-         message:error.message
-       }
+      return {
+        success: false,
+        message: error.message,
+      };
     }
   }
+  
 
 }

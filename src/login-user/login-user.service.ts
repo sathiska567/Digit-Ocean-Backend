@@ -61,6 +61,12 @@ export class LoginUserService {
       await this.userModel.updateOne({email:email},{jwt:jwt});
 
       console.log(registerData);
+
+      return {
+        success: true,
+        message: 'User login Successfully',
+        data: registerData
+      };
            
     } catch (error) {
        return {

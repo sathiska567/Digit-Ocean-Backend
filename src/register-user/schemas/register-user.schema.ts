@@ -4,6 +4,7 @@ import { Schema , Document } from "mongoose";
 export interface RegisterUser extends Document {
         email:string,
         password:string,
+        confirmPassword:string,
         name:string,
         jwt:string
 }
@@ -16,6 +17,10 @@ export const RegisterUserSchema = new Schema({
         unique: true
     },
     password: {
+        type: String,
+        required: true
+    },
+    confirmPassword: {
         type: String,
         required: true
     },
