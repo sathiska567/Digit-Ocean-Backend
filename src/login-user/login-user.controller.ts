@@ -3,7 +3,7 @@ import { LoginUserService } from './login-user.service';
 import { CreateLoginUserDto } from './dto/create-login-user.dto';
 import { UpdateLoginUserDto } from './dto/update-login-user.dto';
 
-@Controller('login-user')
+@Controller('api/v1/login-user')
 export class LoginUserController {
   constructor(private readonly loginUserService: LoginUserService) {}
 

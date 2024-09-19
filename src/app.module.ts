@@ -5,6 +5,7 @@ import { RegisterUserModule } from './register-user/register-user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { LoginUserModule } from './login-user/login-user.module';
+import { OrderCartModule } from './order-cart/order-cart.module';
 
 
 @Module({
@@ -29,7 +30,9 @@ import { LoginUserModule } from './login-user/login-user.module';
 
     RegisterUserModule,
   
-    LoginUserModule
+    LoginUserModule,
+  
+    OrderCartModule
 
   ],
   controllers: [AppController],
